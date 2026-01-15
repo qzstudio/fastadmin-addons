@@ -10,7 +10,6 @@ use PhpZip\Exception\ZipException;
 use PhpZip\ZipFile;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Symfony\Component\VarExporter\VarExporter;
 use think\Cache;
 use think\Db;
 use think\Exception;
@@ -408,7 +407,7 @@ EOD;
             throw new Exception(__("Unable to open file '%s' for writing", "addons.php"));
         }
 
-        file_put_contents($file, "<?php\n\n" . "return " . VarExporter::export($config) . ";\n", LOCK_EX);
+        file_put_contents($file, "<?php\n\n" . "return " . var_export_short($config, true) . ";\n", LOCK_EX);
         return true;
     }
 
